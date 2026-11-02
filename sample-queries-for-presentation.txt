@@ -1,0 +1,17 @@
+% outputs true.
+valid_week([day(monday, upper_push, high), day(tuesday, rest, low), day(wednesday, lower_squat, high), day(thursday, upper_push, moderate), day(friday, rest, low)]).
+
+% outputs false.
+valid_week([day(monday, upper_push, high), day(tuesday, upper_pull, high), wednesday(lower_squat, high), day(thursday, lower_hinge, high), day(friday, rest, low)]).
+
+% outputs false.
+valid_week([
+    day(monday, upper_push, high),
+    day(tuesday, upper_pull, high),
+    wednesday(active_recovery, low),
+    day(thursday, lower_hinge, high),
+    day(friday, full_body_cardio, moderate)
+]).
+
+% generates a valid schedule (utilize ';' to backtrace and iterate through alternative valid routines)
+valid_week(Schedule).
