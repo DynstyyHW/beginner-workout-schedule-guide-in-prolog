@@ -1,17 +1,27 @@
-% outputs true.
-valid_week([day(monday, upper_push, high), day(tuesday, rest, low), day(wednesday, lower_squat, high), day(thursday, upper_push, moderate), day(friday, rest, low)]).
+% 1. generates a valid schedule (utilize ';' to backtrace and iterate through alternative valid routines)
+valid_plan(Schedule,4).
 
-% outputs false.
-valid_week([day(monday, upper_push, high), day(tuesday, upper_pull, high), wednesday(lower_squat, high), day(thursday, lower_hinge, high), day(friday, rest, low)]).
+% 2. Find recommended beginner exercises for an Upper Push session
+split_exercise(upper_push, Exercise).
 
-% outputs false.
-valid_week([
+% 3. Verify if a student's logged exercises are valid for an upper push day
+valid_split_execution(upper_push, [bench_press, overhead_press]).
+
+% 4. Verify if a student's logged exercises are valid for an upper push day (false)
+valid_split_execution(upper_push, [barbell_squat, overhead_press]).
+
+% 5. outputs true as this plan is valid and optimal for workout progression
+valid_plan([
     day(monday, upper_push, high),
-    day(tuesday, upper_pull, high),
-    wednesday(active_recovery, low),
+    day(tuesday, lower_squat, high),
     day(thursday, lower_hinge, high),
-    day(friday, full_body_cardio, moderate)
-]).
+    day(friday, upper_pull, high)
+], 4).
 
-% generates a valid schedule (utilize ';' to backtrace and iterate through alternative valid routines)
-valid_week(Schedule).
+% 6. Testing an unsafe schedule (Heavy Squat on Tuesday and Thursday)
+valid_plan([
+    day(monday, upper_push, high),
+    day(tuesday, lower_squat, high),
+    day(thursday, lower_squat, high),
+    day(friday, upper_pull, high)
+], 4).
